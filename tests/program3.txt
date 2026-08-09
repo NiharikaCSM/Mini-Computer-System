@@ -1,0 +1,42 @@
+x1 = 2
+x2 = 0
+x3 = 0
+x4 = 0
+x5 = 3
+x6 = 0
+x7 = 0
+x8 = 0
+x9 = 4
+Write x1, 0
+Write x2, 1
+Write x3, 2
+Write x4, 3
+Write x5, 4
+Write x6, 5
+Write x7, 6
+Write x8, 7
+Write x9, 8
+Read x10, 0
+Read x11, 1
+Read x12, 2
+Read x13, 3
+Read x14, 4
+Read x15, 5
+Read x16, 6
+Read x17, 7
+Read x18, 8
+x19 = x14 * x18
+x20 = x15 * x17
+x21 = x19 - x20
+x22 = x10 * x21
+x23 = x13 * x18
+x24 = x15 * x16
+x25 = x23 - x24
+x26 = x11 * x25
+x27 = x13 * x17
+x28 = x14 * x16
+x29 = x27 - x28
+x30 = x12 * x29
+x31 = x22 - x26
+x32 = x31 + x30
+Write x32, 9

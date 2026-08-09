@@ -1,0 +1,10 @@
+x1 = 5
+x2 = 10
+Read x3, 0
+Write x1, 1
+x4 = -5
+x5 = x1 + x2
+Read x6, -1
+Write x5, -3
+x7 = x1 - x2
+Write x7, 2
