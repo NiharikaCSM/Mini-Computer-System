@@ -3,7 +3,7 @@
 #include "memory.h"
 
 char Instruction[256];
-char Data[256];
+char Data[4096];
 
 void initialize(void) {
     //make the entries in instruction and data array zero
@@ -18,21 +18,24 @@ void initialize(void) {
         printf("Program.byte not found, Instruction memory left as 0.\n");
     }
 
-    // FILE *data = fopen("data.byte", "rb");
-    // if (data) {
-    //     fread(Data, sizeof(char), 256, data);
-    //     fclose(data);
-    // } else {
-    //     fprintf(stderr, "Note: data.byte not found, Data memory initialized to 0.\n");
-    // }
+    FILE *dataFile = fopen("data.byte", "r");
+    if (!dataFile) { return; }
+
+    int addr = 0;
+    unsigned int val;
+    while (addr < 4096 && fscanf(dataFile, "%x", &val) == 1) {
+        Data[addr++] = (unsigned char)val;
+    }
+    fclose(dataFile);
+
 }
 
 void finalize(void) {
-    FILE *data = fopen("data.byte", "wb");
+    FILE *data = fopen("data.byte", "w");
     if (!data) {
         printf("Error: cannot write data.byte\n");
         return;
     }
-    fwrite(Data, sizeof(char), 256, data);
+    fwrite(Data, sizeof(char), 4096, data);
     fclose(data);
 }

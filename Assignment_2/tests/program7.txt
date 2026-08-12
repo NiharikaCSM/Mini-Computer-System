@@ -1,5 +1,40 @@
+% Test 7: branch conditions
+x20 = 0
+% --- EQ: 5 - 5 = 0, Z=1, BEQ should be taken ---
+x1 = 5
+x2 = 5
+x3 = x1 - x2
+BEQ .eqok
+x20 = x20 + 1      % should be SKIPPED if BEQ works
+.eqok
+
+% --- NE: 5 - 3 = 2, Z=0, BNE should be taken ---
 x1 = 5
 x2 = 3
+x3 = x1 - x2
+BNE .neok
+x20 = x20 + 2      % should be SKIPPED if BNE works
+.neok
 
-x1 = x1 + x2
-Write x1, 0
+% --- GT: 8 - 3 = 5 (positive, no overflow), BGT should be taken ---
+x1 = 8
+x2 = 3
+x3 = x1 - x2
+BGT .gtok
+x20 = x20 + 4      % should be SKIPPED if BGT works
+.gtok
+
+% --- LT: 3 - 8 = -5, BLT should be taken ---
+x1 = 3
+x2 = 8
+x3 = x1 - x2
+BLT .ltok
+x20 = x20 + 8      % should be SKIPPED if BLT works
+.ltok
+
+% --- AL: always taken regardless of flags ---
+BAL .alok
+x20 = x20 + 16     % should be SKIPPED, AL always jumps
+.alok
+
+x21 = x20          % if everything worked, x21 should be 0 at the end

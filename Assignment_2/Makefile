@@ -29,4 +29,4 @@ memory.o: memory.c memory.h
 
 #deletes generated files
 clean:
-	rm -f $(OBJS) $(TARGET) program.byte data.byte 
+	rm -f $(OBJS) $(TARGET) program.byte 
