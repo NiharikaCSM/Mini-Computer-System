@@ -1,0 +1,26 @@
+x1 = 4         % loop counter
+x2 = 0         % accumulator (built via OR + shift each iteration)
+x10 = 1        % the bit being OR'd in this iteration
+.loop
+x9 = x1 - 0    % dummy sub, just to refresh Z/N flags from x1's value
+BEQ .done
+x2 = x2 | x10  % OR-in the current bit  (bitwise logic, var)
+x10 = x10 << 1 % slide the bit left     (shift, const)
+x1 = x1 - 1    % decrement counter
+BAL .loop
+.done
+x11 = ~x2          % bitwise NOT
+x19 = 2            % shift amount, used by the var-shift tests below
+x20 = x2 >> x19    % shift right, var amount
+x21 = x2 << x19    % shift left, var amount
+x13 = x2 & x10     % bitwise AND, var
+x14 = x2 ^ x10     % bitwise XOR, var
+x22 = x10 | 3      % bitwise OR, const
+x23 = x2 & 9       % bitwise AND, const
+x24 = x2 ^ 5       % bitwise XOR, const
+x25 = x11 >>> x19  % arithmetic shift right, var amount
+x26 = x11 >>> 1    % arithmetic shift right, const amount
+x15 = 20           % memory address, held in a register
+[x15] = x2         % memory write, address in register
+x16 = [x15]        % memory read, address in register
+x17 = [20]         % memory read, address is a literal constant
