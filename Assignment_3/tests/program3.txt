@@ -1,0 +1,25 @@
+% Sum of two arrays A and B of size N
+x10 = [0]       % x10 = N (array size)
+x1 = 4          % x1 = Base address of Array A
+x2 = x10 * 4    % Offset for size in bytes
+x2 = x2 + 4     % x2 = Base address of Array B (4 + 4*N)
+x3 = x10 * 4
+x3 = x3 + x2    % x3 = Base address of Array C (4 + 8*N)
+x4 = 0          % x4 = Loop index counter (processed count)
+
+.arrayaddloop
+x15 = x4 - x10  % Check if x4 == N
+BEQ.exitadd
+
+v1 = [x1]       % Load 8 elements from Array A into v1
+v2 = [x2]       % Load 8 elements from Array B into v2
+v3 = v1 + v2     % Vector addition: v3 = v1 + v2
+[x3] = v3       % Store 8 elements from v3 into Array C
+
+x1 = x1 + 32    % Advance Array A pointer by 32 bytes (8 elements * 4 bytes)
+x2 = x2 + 32    % Advance Array B pointer by 32 bytes
+x3 = x3 + 32    % Advance Array C pointer by 32 bytes
+x4 = x4 + 8     % Increment element count by 8
+BAL.arrayaddloop
+
+.exitadd
