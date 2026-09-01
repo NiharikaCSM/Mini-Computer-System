@@ -1,0 +1,8 @@
+x1 = 0
+.loop
+x1 = x1 + 1
+print x1
+x2 = x1 - 20
+BEQ .exit
+BAL .loop
+.exit

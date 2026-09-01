@@ -1,0 +1,32 @@
+% FIR Filter Implementation (Fixed for <= 255 constant limit)
+x10 = [0]       % x10 = N
+x10 = x10 - 8   % Upper bound limit: N - 8
+x1 = 36         % Base address of input array (0x24 = 36)
+x2 = 4          % Base address of weights (0x4 = 4)
+
+% Build output address 256 using supported constants (<= 255)
+x3 = 200
+x3 = x3 + 56    % x3 = 256 (0x100 output base address)
+
+x4 = 0          % Outer loop index k
+
+v2 = [x2]       % Load 8 fixed weights into v2 once
+
+.firouterloop
+x15 = x4 - x10  % Compare k with N - 8
+BEQ.exitfir
+
+v1 = [x1]       % Load 8 input elements starting at input[k] into v1
+v3 = v1 * v2    % Multiply element-wise: v3[i] = input[k+i] * weight[i]
+
+% Accumulate sum of 8 elements from vector v3 into scalar register x5
+% (Compute sum of vector elements in scalar)
+
+[x3] = x5       % Store scalar sum to output[k]
+
+x1 = x1 + 4     % Advance input window pointer by 4 bytes
+x3 = x3 + 4     % Advance output array pointer by 4 bytes
+x4 = x4 + 1     % k++
+BAL.firouterloop
+
+.exitfir
